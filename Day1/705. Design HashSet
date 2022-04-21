@@ -1,0 +1,99 @@
+Problem Link: https://leetcode.com/problems/design-hashset/
+
+
+
+class Node{
+    int k;
+    int v;
+    Node next;
+    public Node(int k)
+    {
+        this.k=k;
+    }
+    
+}
+
+class MyHashSet {
+
+    /** Initialize your data structure here. */
+    private Node set[];
+    private int n=1000001;
+    public MyHashSet() {
+     set=new Node[n];
+    }
+    
+    public void add(int key) {
+    int h=key%n;
+       // Node cur=set[h];
+        if(set[h]==null)
+        {
+            set[h]=new Node(key);
+            return;
+        }
+        else
+        {
+            Node cur=set[h];
+            while(cur.next!=null)
+            {
+                if(cur.k==key)
+                {
+                    return;
+                }
+            }
+            if(cur.k==key)
+            {
+                return;
+            }
+            else
+            {
+                cur.next=new Node(key);
+            }
+        }
+        
+    }
+    
+    public void remove(int key) {
+       int h=key%n;
+        if(set[h]==null) return;
+        Node cur=set[h];
+        if(cur.k==key)
+        {
+            set[h]=set[h].next;
+            return;
+        }
+        while(cur.next!=null)
+        {
+            if(cur.next.k==key)
+            {
+              cur.next=cur.next.next;
+                return;
+            }
+        }
+        
+    }
+    
+    /** Returns true if this set contains the specified element */
+    public boolean contains(int key) {
+        int h=key%n;
+        Node cur=set[h];
+        while(cur!=null)
+        {
+            if(cur.k==key)
+            {
+                return true;
+            }
+            cur=cur.next;
+        }
+        return false;
+        
+        
+    }
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
+ */
