@@ -1,0 +1,43 @@
+Problem Link: https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/
+
+
+
+class Solution {
+   
+    
+    public int maximumCandies(int[] a, long k) {
+        Arrays.sort(a);
+        long r=0;
+        for(int x: a) r+=(long)x;
+     
+        
+        long l=1;
+        long c=0;
+        long mn=(long)a[0];
+        long ans=0;
+        long sum=r;
+           if(k>r) return 0;
+      //  if(k==1) return (int)sum;
+       // r=a[a.length-1];
+        while(l<=r)
+        {
+          long m=(l+r)/2;
+          long s=0;
+          for(int x: a)
+          {
+              s+=(long)(x/m);
+          }
+            if(s>=k) 
+            {
+                ans=m;
+                l=m+1;
+                
+            }
+            else r=m-1;
+                 
+        }
+        return (int)ans;
+        
+        
+    }
+}
