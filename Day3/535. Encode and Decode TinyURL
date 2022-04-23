@@ -1,0 +1,23 @@
+Problem Link: https://leetcode.com/problems/encode-and-decode-tinyurl/
+
+
+
+public class Codec {
+ Map<Integer,String> mp=new HashMap<>();
+    // Encodes a URL to a shortened URL.
+    public String encode(String longUrl) {
+        int i=0;
+        mp.put(i,longUrl);
+          return "http://tinyurl.com/"+i++;
+        
+    }
+
+    // Decodes a shortened URL to its original URL.
+    public String decode(String shortUrl) {
+        return mp.get(Integer.valueOf(shortUrl.replace("http://tinyurl.com/","")));
+    }
+}
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.decode(codec.encode(url));
