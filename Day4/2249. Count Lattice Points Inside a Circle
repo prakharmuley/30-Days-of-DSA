@@ -1,0 +1,44 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-290/problems/count-lattice-points-inside-a-circle/
+
+
+
+class Solution {
+     int ans=0; 
+    public int countLatticePoints(int[][] circles) {
+       // Set<int[]]=new HashSet<>();
+       int r[]=new int[circles.length];
+         int x[]=new int[circles.length];
+         int y[]=new int[circles.length];
+        // int p[] = new int[n];
+        Set<String> hs=new HashSet<>();
+      
+       for(int i=0;i<r.length;i++) {r[i]=circles[i][2]; x[i]=circles[i][0]; y[i]=circles[i][1];}
+         
+                  for(int i=0;i<r.length;i++)
+                  {
+                   int xx=x[i];
+                      int yy=y[i];
+                      int rr=r[i];
+                      for(int h=rr-xx;h<=xx+rr;h++)
+                      {
+                          for(int k=rr-yy;k<=yy+rr;k++)
+                          {
+                              if(((xx-h)*(xx-h))+((yy-k)*(yy-k))<=rr*rr)
+                              {
+                                  hs.add(h+"-"+k);
+                              }
+                          }
+                      }
+                      
+                  }
+              
+          
+        
+        return hs.size();
+        
+       
+       
+        
+        
+    }
+}
