@@ -1,0 +1,39 @@
+Problem Link: https://leetcode.com/problems/path-with-minimum-effort/
+
+
+
+class Solution {
+    int [][]dir=new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+    public boolean dfs(int x, int y, int dis, int[][] h, boolean[][] vis, int val)
+    {
+        if(x<0||x>=h.length||y<0||y>=h[0].length||vis[x][y]||Math.abs(val-h[x][y])>dis)
+            return false;
+        
+        if(x==h.length-1&&y==h[0].length-1) return true;
+        
+        vis[x][y]=true;
+        for(int []dd : dir)
+        {
+            if(dfs(x+dd[0],y+dd[1],dis,h,vis,h[x][y])) return true;
+        }
+        
+           return false;
+    }
+    public int minimumEffortPath(int[][] h) {
+        int m=h.length;
+        int n=h[0].length;
+        int l=0;
+        int r=1000000;
+     
+        while(l<r)
+        {
+               boolean vis[][]=new boolean[m][n];
+            int mid=l+((r-l)/2);
+            if(dfs(0,0,mid,h,vis,h[0][0]))
+                r=mid;
+            else
+                l=mid+1;
+        }
+        return l;
+    }
+}
