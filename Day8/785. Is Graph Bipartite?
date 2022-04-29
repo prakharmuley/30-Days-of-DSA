@@ -1,0 +1,50 @@
+Problem Link: https://leetcode.com/problems/is-graph-bipartite/
+
+
+
+class Solution {
+    boolean dfs(int node,ArrayList<Integer>[] adj, int[] color)
+    {
+       
+        for(int x: adj[node])
+        {
+           if(color[x]==-1)
+           {
+               color[x]=1-color[node];
+               if(!dfs(x,adj,color)) return false;
+           }
+           else 
+           {
+               if(color[x]==color[node]) return false;
+           }
+          
+        }
+        return true;
+    }
+    public boolean isBipartite(int[][] g) {
+        int n=g.length;
+        int color[]=new int[n];
+        boolean vis[]=new boolean[n];
+        ArrayList<Integer>[] adj=new ArrayList[n];
+        Arrays.fill(color,-1);
+        for(int i=0;i<g.length;i++)
+        {
+            adj[i]=new ArrayList<>();
+           for(int x: g[i])
+           {
+               adj[i].add(x);
+           }
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(color[i]==-1)
+            {
+                color[i]=0;
+                if(!dfs(i,adj,color)) return false;
+            }   
+            
+         }
+        
+                   return true;
+    }
+}
