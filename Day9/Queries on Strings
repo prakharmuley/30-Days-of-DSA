@@ -1,0 +1,68 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/queries-on-strings5636/1#
+
+
+
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String str = br.readLine().trim();
+            int q = Integer.parseInt(br.readLine().trim());
+            int[][] Query = new int[q][2];
+            for(int i = 0; i < q; i++){
+                String[] s = br.readLine().trim().split(" ");
+                for(int j = 0; j < 2; j++){
+                    Query[i][j] = Integer.parseInt(s[j]);
+                }
+            }
+            Solution obj = new Solution();
+            int[] ans = obj.SolveQueris(str, Query);
+            for(int i = 0; i < ans.length; i++)
+                System.out.print(ans[i] + " ");
+            System.out.println();
+        }
+    }
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution
+{
+    public int[] SolveQueris(String str, int[][] query)
+    {
+         int n=str.length();
+         int q=query.length;
+         int dp[][]=new int[n+1][26];
+         int res[]=new int[q];
+         for(int i=0;i<26;i++) dp[0][i]=0;
+         dp[1][str.charAt(0)-'a']++;
+         for(int i=2;i<=n;i++)
+         {
+         for(int j=0;j<26;j++) {dp[i][j]=dp[i-1][j]; }
+         dp[i][str.charAt(i-1)-'a']++;
+         }
+         for(int i=0;i<q;i++)
+         {
+             int l=query[i][0]; int r=query[i][1];
+             int c=0;
+             for(int j=0;j<26;j++)
+             {
+                 if(dp[r][j]-dp[l-1][j]>0) c++;
+             }
+             res[i]=c;
+         }
+         return res;
+    }
+}
