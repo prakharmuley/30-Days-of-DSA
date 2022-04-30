@@ -1,0 +1,50 @@
+Problem Link: https://leetcode.com/problems/evaluate-division/
+
+
+
+class Solution {
+    public Map<String,Map<String,Double>> buildGraph(List<List<String>> eq, double[] val, List<List<String>> q)
+    {
+        Map<String,Map<String,Double>> mp=new HashMap<>();
+        int i=0;
+        for(List<String> s: eq)
+        {
+            String u=s.get(0);
+            String v=s.get(1);
+            mp.putIfAbsent(u,new HashMap<>());
+            mp.putIfAbsent(v,new HashMap<>());
+            mp.get(u).put(v,val[i]);
+            mp.get(v).put(u,1/val[i++]);
+            
+        }
+        return mp;
+    }
+    public double dfs(String st, String end, Map<String,Map<String,Double>> mp, Set<String> hs)
+    {
+        if(!mp.containsKey(st)) return -1.0;
+        Map<String,Double> mpp=mp.get(st);
+        if(mpp.containsKey(end)) return mpp.get(end);
+        hs.add(st);
+        for(Map.Entry<String,Double> e: mpp.entrySet())
+        {
+            if(!hs.contains(e.getKey()))
+            {
+                double r=dfs(e.getKey(),end,mp,hs);
+                if(r!=-1.0)
+                {
+                    return r*e.getValue();
+                }
+            }
+        }
+        return -1.0;
+    }
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        Map<String,Map<String,Double>> mp=buildGraph(equations,values,queries);
+        double res[]=new double[queries.size()];
+        for(int i=0;i<res.length;i++)
+        {
+            res[i]=dfs(queries.get(i).get(0),queries.get(i).get(1),mp,new HashSet<>());
+        }
+        return res;
+    }
+}
