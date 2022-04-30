@@ -1,0 +1,14 @@
+Problem Link: https://leetcode.com/contest/biweekly-contest-77/problems/count-prefixes-of-a-given-string/
+
+
+
+class Solution {
+    public int countPrefixes(String[] words, String s) {
+        int c=0;
+        for(String ss: words)
+        {
+           if(s.startsWith(ss)) c++;
+        }
+        return c;
+    }
+}
