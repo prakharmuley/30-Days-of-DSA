@@ -1,0 +1,43 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-291/problems/minimum-consecutive-cards-to-pick-up/
+
+
+
+class Solution {
+    public int minimumCardPickup(int[] cards) {
+        Map<Integer,Integer> mp=new HashMap<>();
+        Map<Integer,List<Integer>> mpi=new HashMap<>();
+        for(int x: cards) mp.put(x,mp.getOrDefault(x,0)+1);
+        int i=0;
+        for(int x: cards) 
+        {
+            if(mp.get(x)>1)
+            {
+                if(!mpi.containsKey(x))
+                {
+                    List<Integer> l=new ArrayList<>();
+                    l.add(i);
+                    mpi.put(x,l);
+                }
+                else
+                {
+                     List<Integer> l=mpi.get(x);
+                     l.add(i);
+                    mpi.put(x,l);
+                }
+            }
+            i++;
+        }
+        int mn=Integer.MAX_VALUE;
+        for(Map.Entry<Integer,List<Integer>> e: mpi.entrySet())
+        {
+            if(e.getValue().size()>1)
+            {
+                for( i=0;i+1<e.getValue().size();i++)
+                {
+                    mn=Math.min(mn,e.getValue().get(i+1)-e.getValue().get(i)+1);
+                }
+            }
+        }
+        return mn==Integer.MAX_VALUE?-1:mn;
+    }
+}
