@@ -1,0 +1,66 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/party-in-town3951/1#
+
+
+
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG{
+    public static void main(String args[])throws IOException
+    {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(in.readLine());
+        while(t-- > 0){
+            int N = Integer.parseInt(in.readLine());
+            ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
+    		for(int i = 0;i < N+1;i++){
+    	        ArrayList<Integer> arr = new ArrayList<Integer>();
+    	        adj.add(arr);
+    		}
+    		for(int i = 0;i < N-1;i++){
+    		    String a[] = in.readLine().trim().split("\\s+");
+    		    int x = Integer.parseInt(a[0]);
+    		    int y = Integer.parseInt(a[1]);
+    		    adj.get(x).add(y);
+    		    adj.get(y).add(x);
+    		}
+    		
+    		Solution ob = new Solution();
+    		System.out.println(ob.partyHouse(N, adj));
+        }
+    }
+}// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution{
+    public static void dfs(int node, int par, ArrayList<ArrayList<Integer>> adj, int[] farDistCur, int cur)
+    {
+        farDistCur[0]=Math.max(cur,farDistCur[0]);
+        ArrayList<Integer> al=adj.get(node);
+        for(int x: al)
+        {
+            if(x!=par)
+            {
+                dfs(x,node,adj,farDistCur,cur+1);
+            }
+        }
+    }
+    static int partyHouse(int n, ArrayList<ArrayList<Integer>> adj)
+    {
+       int minFarDist=n;
+       int farDistCur[]=new int[1];
+       for(int i=1;i<=n;i++)
+       {
+           farDistCur[0]=0;
+           dfs(i,-1,adj,farDistCur,0);
+           minFarDist=Math.min(minFarDist,farDistCur[0]);
+       }
+       return minFarDist;
+    }
+    
+}
