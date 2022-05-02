@@ -1,0 +1,58 @@
+Problem Link: https://leetcode.com/problems/backspace-string-compare/
+
+
+
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+       int sr=s.length()-1;
+       int tr=t.length()-1;
+       int sskp=0;
+       int tskp=0;
+       while(sr>=0||tr>=0)
+       {
+           while(sr>=0)
+           {
+               if(s.charAt(sr)=='#')
+               {
+                   sskp+=1;
+                   sr--;
+               }
+               else if(sskp>0)
+               {
+                   sskp--;
+                   sr--;
+               }
+               else
+               {
+                   break;
+               }
+           }
+           
+            while(tr>=0)
+           {
+               if(t.charAt(tr)=='#')
+               {
+                   tskp+=1;
+                   tr--;
+               }
+               else if(tskp>0)
+               {
+                   tskp--;
+                   tr--;
+               }
+               else
+               {
+                   break;
+               }
+           }
+           if(sskp>=0&&tskp>=0&&tr>=0&&sr>=0&&s.charAt(sr)!=t.charAt(tr)) return false;
+           if((sr>=0)!=(tr>=0)) return false;
+           
+           sr--;
+           tr--;
+       }
+        
+        
+        return true;
+    }
+}
