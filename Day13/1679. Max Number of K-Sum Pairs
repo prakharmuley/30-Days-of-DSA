@@ -1,7 +1,8 @@
 Problem Link: https://leetcode.com/problems/max-number-of-k-sum-pairs/
 
 
-
+T.C- O(nlogn)
+S.C- O(1)
 class Solution {
     public int maxOperations(int[] a, int k) {
         Arrays.sort(a);
@@ -17,6 +18,28 @@ class Solution {
                 r--;
                 ans++;
                 
+            }
+        }
+        return ans;
+    }
+}
+
+T.C- O(n)
+S.C- O(n)
+class Solution {
+    public int maxOperations(int[] a, int k) {        
+        int ans=0;
+        Map<Integer,Integer> mp=new HashMap<>();
+        for(int x: a)
+        {
+            if(mp.containsKey(k-x)&&mp.get(k-x)>0)
+            {
+                ans++;
+                mp.put(k-x,mp.get(k-x)-1);
+            }
+            else
+            {
+                mp.put(x,mp.getOrDefault(x,0)+1);
             }
         }
         return ans;
