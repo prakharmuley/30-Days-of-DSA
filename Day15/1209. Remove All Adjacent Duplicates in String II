@@ -1,0 +1,42 @@
+Problem Link: https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/
+
+
+
+
+class Pair{
+    char ch;
+    int c;
+    public Pair(char ch, int c)
+    {
+        this.ch=ch;
+        this.c=c;
+    }
+}
+class Solution {
+    public String removeDuplicates(String s, int k) {
+        Stack<Pair> st=new Stack<>();
+        int h[]=new int[26];
+        StringBuilder sb=new StringBuilder();
+        int i=0;
+        for( i=0;i<s.length();i++)
+        {
+           
+            
+            if(!st.isEmpty()&&st.peek().ch==s.charAt(i))
+            {
+                st.peek().c++;
+            }
+            else
+            {
+                 st.push(new Pair(s.charAt(i),1));
+            }
+            if(!st.isEmpty()&&st.peek().c==k) st.pop();
+        }
+        
+        for(Pair p: st)
+        {
+            sb.append(String.valueOf(p.ch).repeat(p.c));
+        }
+        return sb.toString();
+    }
+}
