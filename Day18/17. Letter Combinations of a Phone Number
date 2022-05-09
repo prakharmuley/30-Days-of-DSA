@@ -1,0 +1,41 @@
+Problem Link: https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+
+
+class Solution {
+     Map<Integer,String> mp=new HashMap<>();
+       
+    
+    public void fun(String p,String s, int i, List<String> l)
+    {
+        if(i>=s.length())
+        {
+            l.add(p);
+            return;
+        }
+        String temp=mp.get(s.charAt(i)-'0');
+        for(int j=0;j<temp.length();j++)
+        {
+            fun(p+temp.charAt(j),s,i+1,l);
+        }
+        
+         
+         
+    }
+    public List<String> letterCombinations(String d) {
+       
+        mp.put(2,"abc");
+        mp.put(3,"def");
+        mp.put(4,"ghi");
+        mp.put(5,"jkl");
+        mp.put(6,"mno");
+        mp.put(7,"pqrs");
+        mp.put(8,"tuv");
+        mp.put(9,"wxyz");
+        List<String> l=new LinkedList<>();
+         if(d.length()==0) return l;
+        fun("",d,0,l);
+        return l;
+        
+    }
+}
