@@ -1,0 +1,37 @@
+Problem Link: https://leetcode.com/problems/combination-sum-iii/
+
+
+
+class Solution {
+    int sum=0;
+    public void fun( List<List<Integer>> l, int i, int k, int n, List<Integer> al)
+    {
+        
+        if(al.size()==k&&0==n)
+        {
+            List<Integer> li = new ArrayList<Integer>(al);
+            l.add(li);
+            return;
+        }
+        
+           
+        for(int j=i;j<=9;j++)
+        {
+            al.add(j);
+           
+            fun(l,j+1,k,n-j,al);
+            al.remove(al.size()-1);
+          
+        
+        }
+    }
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> l=new ArrayList<>();
+        List<Integer> al=new ArrayList<>();
+        int s[]=new int[1];
+        
+        fun(l,1,k,n,al);
+        
+        return l;
+    }
+}
