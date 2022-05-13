@@ -1,0 +1,81 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/maximize-the-array3340/1#
+
+
+
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class GFG {
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int tc = Integer.parseInt(br.readLine().trim());
+        while (tc-- > 0) {
+            String[] inputLine;
+            int n = Integer.parseInt(br.readLine().trim());
+            int[] arr1 = new int[n], arr2 = new int[n];
+            inputLine = br.readLine().trim().split(" ");
+            for (int i = 0; i < n; i++) {
+                arr1[i] = Integer.parseInt(inputLine[i]);
+            }
+            inputLine = br.readLine().trim().split(" ");
+            for (int i = 0; i < n; i++) {
+                arr2[i] = Integer.parseInt(inputLine[i]);
+            }
+
+            ArrayList<Integer> ans = new Solution().maximizeArray(arr1, arr2, n);
+            for (Integer x : ans) {
+                System.out.print(x + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution {
+    ArrayList<Integer> maximizeArray(int[] a1, int[] a2, int n) {
+        Set<Integer> hs=new HashSet<>();
+        ArrayList<Integer> al=new ArrayList<>();
+        
+         ArrayList<Integer> l=new ArrayList<>();
+         for(int i=0;i<n;i++) {l.add(a1[i]); l.add(a2[i]);} 
+         Collections.sort(l);
+         for(int i=l.size()-1;i>=0;i--)
+         {
+             if(hs.size()==n) break;
+             if(!hs.contains(l.get(i))){
+             hs.add(l.get(i));
+             }
+             
+         }
+         Set<Integer> h=new HashSet<>();
+         for(int i=0;i<n;i++)
+         {
+             if(hs.contains(a2[i])&&!h.contains(a2[i]))
+             {
+                 al.add(a2[i]);
+                 h.add(a2[i]);
+             }
+         }
+         for(int i=0;i<n;i++)
+         {
+             if(hs.contains(a1[i])&&!h.contains(a1[i]))
+             {
+                 al.add(a1[i]);
+                 h.add(a1[i]);
+             }
+         }
+         return al;
+        
+        
+        
+    }
+}
