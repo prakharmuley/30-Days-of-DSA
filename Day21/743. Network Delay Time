@@ -1,0 +1,51 @@
+Problem Link: https://leetcode.com/problems/network-delay-time/
+
+
+
+class Solution {
+    public int networkDelayTime(int[][] t, int n, int k) {
+        ArrayList<int[]>[] adj=new ArrayList[n+1];
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[1]-b[1]);
+        for(int i=0;i<=n;i++) adj[i]=new ArrayList<>();
+        for(int i=0;i<t.length;i++) 
+        {
+            int a=t[i][0];
+            int b=t[i][1];
+            int c=t[i][2];
+            adj[a].add(new int[]{b,c});
+        }
+        int d[]=new int[n+1];
+        if(adj[k].size()==0) return -1;
+        int res=-1;
+        boolean vis[]=new boolean[n+1];
+        pq.offer(new int[]{k,0});
+        while(!pq.isEmpty())
+        {
+            int[] p=pq.poll();
+            int v=p[0];
+            int w=p[1];
+            res=w;
+            if(vis[v]) continue;
+            vis[v]=true;
+            n--;
+            if(n==0) return res;
+            for(int[] x: adj[v])
+            {
+                pq.offer(new int[]{x[0],x[1]+w});
+            }
+              
+        }
+        return res;
+        
+        
+    }
+}
+class Pair{
+    int v;
+    int w;
+    public Pair(int v, int w)
+    {
+        this.v=v;
+        this.w=w;
+    }
+}
