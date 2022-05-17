@@ -1,0 +1,33 @@
+Problem Link: 1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+class Solution {
+    public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+       
+        TreeNode root=cloned;
+        TreeNode[] node=new TreeNode[]{root};
+        fun(cloned,target,node,root);
+         return node[0];
+    }
+    public void fun(TreeNode cloned, TreeNode target, TreeNode[] node, TreeNode root)
+    {
+        if(root==null) return ;
+         if(root.val==target.val) node[0]=root;
+        fun(cloned,target,node,root.left);
+        
+        fun(cloned,target,node,root.right);
+        
+        
+    }
+}
