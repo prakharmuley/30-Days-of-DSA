@@ -1,0 +1,20 @@
+Problem Link: https://leetcode.com/problems/coin-change/
+
+
+
+class Solution {
+    public int fun(int[] c, int a, Integer[][] dp, int i, long sum)
+    {
+        if(sum==a) return 0;
+        if(i>=c.length||sum>(long)a) return 10000009;
+        if(dp[i][(int)sum]!=null) return dp[i][(int)sum];
+        int x=1+fun(c,a,dp,i,sum+(long)c[i]);
+        int y=fun(c,a,dp,i+1,(long)sum);
+        return dp[i][(int)sum]=Math.min(x,y);
+    }
+    public int coinChange(int[] coins, int amount) {
+      Integer[][] dp=new Integer[coins.length+4][amount+4]; 
+        
+      return fun(coins,amount,dp,0,0)>=10000009?-1: fun(coins,amount,dp,0,0);  
+    }
+}
