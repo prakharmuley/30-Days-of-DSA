@@ -1,0 +1,66 @@
+Problem Link: https://leetcode.com/contest/biweekly-contest-79/problems/sender-with-largest-word-count/
+
+
+
+class Solution {
+    public static int  word_count(String s)
+    {
+        int c=0;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s.charAt(i)==' ') c++;
+        }    
+        return c+1;
+        
+    }
+    public String largestWordCount(String[] m, String[] s) {
+        List<String> l=new ArrayList<>();
+        Map<String,List<String>> mp=new HashMap<>();
+        for(int i=0;i<s.length;i++)
+        {
+            if(!mp.containsKey(s[i]))
+            {
+                List<String> al=new ArrayList<>();
+                al.add(m[i]);
+                mp.put(s[i],al);
+            }
+            else
+            {
+               List<String> al=mp.get(s[i]);
+                al.add(m[i]);
+                mp.put(s[i],al);
+            }
+        }
+        Map<String,Integer> mpp=new HashMap<>();
+        for(Map.Entry<String,List<String>> e: mp.entrySet())
+        {
+            
+          
+            for(String str: mp.get(e.getKey())){
+             if(!mpp.containsKey(e.getKey())) mpp.put(e.getKey(),word_count(str));
+            else
+            {
+                mpp.put(e.getKey(),mpp.get(e.getKey())+word_count(str));
+            }
+            }
+            
+            
+        }
+        int mx=0;
+        for(Map.Entry<String,Integer> e: mpp.entrySet())
+        {
+            mx=Math.max(mx,e.getValue());
+        }
+         for(Map.Entry<String,Integer> e: mpp.entrySet())
+        {
+            if(mx==e.getValue())
+            {
+                l.add(e.getKey());
+            }
+        }
+        Collections.sort(l);
+       
+            //System.out.print(l.size()+"\n");
+        return l.get(l.size()-1);
+    }
+}
