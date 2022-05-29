@@ -1,0 +1,35 @@
+Problem Link: https://leetcode.com/problems/maximum-product-of-word-lengths/
+
+
+
+class Solution {
+    public int maxProduct(String[] words) {
+       int bits[]=new int[words.length];
+        int ii=0;
+        for(String s: words)
+        {
+            int msk=0;
+            
+            for(char c: s.toCharArray())
+            {
+                msk|=(1<<(c-'a'));
+            }
+          bits[ii++]=msk;
+        }
+        int mx=0;
+    
+        for(int i=0;i<words.length-1;i++)
+        {
+            for(int j=i+1;j<words.length;j++)
+            {
+                if((bits[i]&bits[j])==0)
+                {
+                    mx=Math.max(words[i].length()*words[j].length(),mx);
+                }      
+            }
+        }
+        return mx;
+        
+       
+    }
+}
