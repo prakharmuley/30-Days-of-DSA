@@ -1,0 +1,40 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-295/problems/rearrange-characters-to-make-target-string/
+
+
+
+class Solution {
+    public int rearrangeCharacters(String s, String target) {
+     int h[]=new int[26];
+        int hh[]=new int[26];
+        int ans=Integer.MAX_VALUE;
+        for(char c: s.toCharArray())
+        {
+            h[c-'a']++;
+        }
+        for(char c: target.toCharArray())
+        {
+           hh[c-'a']++;
+        }
+        for(char c: target.toCharArray())
+        {
+            ans=Math.min(ans,h[c-'a']/hh[c-'a']);
+           
+        }
+        // int f=1;
+        // for(int i=1;i<target.length();i++)
+        // {
+        //     if(target.charAt(i)!=target.charAt(i-1))
+        //     {
+        //         f=0;
+        //         break;
+        //     }
+        // }
+        // if(f==1)
+        // {
+        //     ans=ans/target.length();
+        // }
+        return ans;
+    }
+    
+   
+}
