@@ -1,0 +1,45 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-295/problems/apply-discount-to-prices/
+
+
+
+class Solution {
+     public double getPrice(String s) {
+        return Double.parseDouble(s.substring(1));
+    }
+    
+    public double gvad(double p, int d) {
+        
+        return p - (p*d)/100d;
+    }
+    
+     public String discountPrices(String sentence, int discount) {
+         
+        StringBuilder sb = new StringBuilder();
+         String[] t = sentence.split(" ");
+        for(String token: t) {
+            
+            if(isValid(token)) {
+                
+                double vad = gvad(getPrice(token), discount);
+                sb.append(" $" + String.format("%.2f", vad));
+            } else {
+                sb.append(" " + token);
+            }
+        }
+        
+        return sb.toString().substring(1);
+    }
+    
+    public boolean isValid(String s) {
+        if(s.length() <= 1 || !s.startsWith("$")) 
+            return false;
+        for(int i=1;i<s.length();i++) {
+            if(!(s.charAt(i) >= 48 && s.charAt(i) <= 57)) return false;
+        }
+        return true;
+    }
+    
+   
+    
+   
+}
