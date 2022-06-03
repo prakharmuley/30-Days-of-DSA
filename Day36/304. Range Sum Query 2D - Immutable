@@ -1,0 +1,53 @@
+Problem Link: https://leetcode.com/problems/range-sum-query-2d-immutable/
+
+
+
+class NumMatrix {
+ int a[][];
+    int m[][];
+    int c[][];
+    public NumMatrix(int[][] m) {
+       // a=new int[m.length][m[0].length];
+       this.m=m;
+       
+        for(int i=1;i<m.length;i++)
+        { 
+           m[i][0]+=m[i-1][0];
+        }
+         for(int j=1;j<m[0].length;j++)
+        { 
+           m[0][j]+=m[0][j-1];
+        }
+        
+        for(int i=1;i<m.length;i++){
+            for(int j=1;j<m[0].length;j++){
+                m[i][j]+=m[i-1][j]+m[i][j-1]-m[i-1][j-1];
+            }
+        }
+    }
+    
+    public int sumRegion(int r1, int c1, int r2, int c2) {
+        int sum=m[r2][c2],cs=0;
+       if(r1!=0)
+       {
+           sum-=m[r1-1][c2];
+       }
+        if(c1!=0)
+        {
+            cs=m[r2][c1-1];
+            if(r1!=0)
+            {
+                cs-=m[r1-1][c1-1];
+            }
+            sum-=cs;
+        }
+     
+        return sum;
+    }
+}
+
+/**
+ * Your NumMatrix object will be instantiated and called as such:
+ * NumMatrix obj = new NumMatrix(matrix);
+ * int param_1 = obj.sumRegion(row1,col1,row2,col2);
+ */
