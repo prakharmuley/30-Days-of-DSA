@@ -1,0 +1,54 @@
+Problem Link: https://leetcode.com/problems/n-queens-ii/
+
+
+
+class Solution {
+    public boolean isSafe(char[][] ch, int r, int c)
+    {
+        
+        for(int i=0;i<r;i++)
+        {
+            if(ch[i][c]=='Q') return false;
+        }
+         for(int i=0;i<c;i++)
+        {
+            if(ch[r][c]=='Q') return false;
+        }
+         for(int i=r-1,j=c+1;i>=0&&j<ch.length;i--,j++)
+        {
+            if(ch[i][j]=='Q') return false;
+        }
+         for(int i=r-1,j=c-1;i>=0&&j>=0;i--,j--)
+        {
+            if(ch[i][j]=='Q') return false;
+        }
+        return true;
+    }
+    public void fill(char[][] ch, int row, List<List<String>> l, int[] c)
+    {
+        if(row==ch.length)
+        {
+            c[0]++;
+            return;
+        }
+        for(int col=0;col<ch[row].length;col++)
+        {
+            if(isSafe(ch,row,col)){
+            ch[row][col]='Q';
+            fill(ch,row+1,l,c);
+            ch[row][col]='.';
+            }
+        }
+    }
+    public int totalNQueens(int n) {
+        List<List<String>> l=new ArrayList<>();
+        char ch[][]=new char[n][n];
+        for(int i=0;i<n;i++)
+        {
+            Arrays.fill(ch[i],'.');
+        }
+        int c[]=new int[1];
+        fill(ch,0,l,c);
+        return c[0];
+    }
+}
