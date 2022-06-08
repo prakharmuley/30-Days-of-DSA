@@ -1,0 +1,26 @@
+Problem Link:  https://leetcode.com/problems/remove-palindromic-subsequences/
+
+
+
+class Solution {
+    public int removePalindromeSub(String s) {
+        StringBuffer rev=new StringBuffer(s);
+        if(s.equals("")) return 0;
+        char[] ch=s.toCharArray();
+        int l=0,r=ch.length-1;
+        for(l=0;l<r;l++,r--)
+        {
+            char tmp=ch[l];
+            ch[l]=ch[r];
+            ch[r]=tmp;
+        }
+      String str="";
+          for(char c: ch)
+          {
+              str+=c;
+          }
+       if(str.equals(s)) return 1;
+        
+        return 2;
+    }
+}
