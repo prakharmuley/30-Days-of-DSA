@@ -1,0 +1,22 @@
+Problem Link: https://leetcode.com/problems/minimum-length-of-string-after-deleting-similar-ends/
+
+
+
+class Solution {
+    public int minimumLength(String s) {
+        int i=0;
+        int j=s.length()-1;
+        int l=s.length();
+        while(i<j)
+        {
+            if(s.charAt(i)==s.charAt(j))
+            {
+             char c=s.charAt(i);  
+             while(i<j&&s.charAt(i)==c) i++;   
+             while(i<=j&&s.charAt(j)==c) j--;
+            }
+            else break;  
+        }
+        return j-i+1;
+    }
+}
