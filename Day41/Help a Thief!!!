@@ -1,0 +1,65 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/help-a-thief5938/1#
+
+
+
+// { Driver Code Starts
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static void main(String args[]) throws IOException {
+        BufferedReader read =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        while (t-- > 0) {
+            String S[] = read.readLine().split(" ");
+            int T = Integer.parseInt(S[0]);
+            int N = Integer.parseInt(S[1]);
+            
+            String S1[] = read.readLine().split(" ");
+            String S2[] = read.readLine().split(" ");
+            
+            int[] A = new int[N];
+            int[] B = new int[N];
+            
+            for(int i=0; i<N; i++)
+            {
+                A[i] = Integer.parseInt(S1[i]);
+                B[i] = Integer.parseInt(S2[i]);
+            }
+
+            Solution ob = new Solution();
+            System.out.println(ob.maxCoins(A,B,T,N));
+        }
+    }
+}// } Driver Code Ends
+
+
+class Solution {
+    static int maxCoins(int[] a, int[] b, int t, int n) {
+      int ans=0;
+      Pair p[]=new Pair[n];
+      for(int i=0;i<n;i++) p[i]=new Pair(b[i],a[i]);
+      Arrays.sort(p,(x,y)->Integer.compare(x.f,y.f));
+      for(int i=n-1;i>=0;i--)
+      {
+          if(t==0) break;
+          if(p[i].s<=t) {t-=p[i].s; ans+=p[i].f*p[i].s;  }
+          else
+          {
+              ans+=t*(p[i].f);
+              t=0;
+          }
+      }
+      return ans;
+    }
+}
+class Pair{
+    int f;
+    int s;
+    public Pair(int f, int s)
+    {
+        this.f=f;
+        this.s=s;
+    }
+}
