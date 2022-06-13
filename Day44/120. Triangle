@@ -1,0 +1,15 @@
+Problem Link: https://leetcode.com/problems/triangle/
+
+
+
+class Solution {
+    public int minimumTotal(List<List<Integer>> t) {
+        int ans=t.get(0).get(0),j=0;
+        for(int i=1;i<t.size();i++)
+        {
+            ans+=Math.max(t.get(i).get(j),t.get(i).get(j+1));
+            
+        }
+        return ans;
+    }
+}
