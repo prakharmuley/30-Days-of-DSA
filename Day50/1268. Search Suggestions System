@@ -1,7 +1,7 @@
 Problem Link: https://leetcode.com/problems/search-suggestions-system/
 
 
-
+//Appraoch 1
 class Solution {
     public List<List<String>> suggestedProducts(String[] products, String searchWord) {
          List<List<String>> result = new ArrayList<>();
@@ -39,3 +39,22 @@ class Solution {
         return result;
  }
 }
+
+
+
+//Approach 2
+ public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        Arrays.sort(products);
+        List<List<String>> suggestedWords = new ArrayList<>();
+        for (int i = 0; i < searchWord.length(); i++){
+            String prefix = searchWord.substring(0, i + 1);
+            int index = Arrays.binarySearch(products, prefix);
+            if (index < 0) index = -(index+1);
+            List<String> words = new ArrayList<>();
+            for (int j = index; j < Math.min(index + 3, products.length); j++){
+                if (products[j].startsWith(prefix)) words.add(products[j]);
+            }
+            suggestedWords.add(words);    
+        }
+        return suggestedWords;
+ }    
