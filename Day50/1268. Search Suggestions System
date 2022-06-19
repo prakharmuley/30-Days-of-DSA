@@ -1,0 +1,41 @@
+Problem Link: https://leetcode.com/problems/search-suggestions-system/
+
+
+
+class Solution {
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+         List<List<String>> result = new ArrayList<>();
+        if(searchWord.length()==0 || products.length==0)
+        return result;
+    
+          
+    Arrays.sort(products);
+    
+    for(int i=1;i<searchWord.length()+1;i++)
+    {
+        String str = searchWord.substring(0,i);
+        
+        
+        List<String> temp = new ArrayList<>();
+       
+        for(int j=0;j<products.length;j++)
+        {
+            if(str.length()<=products[j].length())
+            {    
+                String product = products[j].substring(0,str.length());
+            
+                if(product.equals(str))
+                    temp.add(products[j]);
+               
+            }     
+        }
+        
+        if(temp.size()>3)         
+            result.add(temp.subList(0,3));
+        else
+            result.add(temp);
+        
+    }
+        return result;
+ }
+}
