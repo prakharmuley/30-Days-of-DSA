@@ -1,0 +1,33 @@
+class Solution {
+    public int countAsterisks(String str) {
+        String temp = "";      
+        int cnt = 0;
+        int n = str.length();
+        char s[]=str.toCharArray();
+        int flag = 0;
+        
+        for(int i = 0; i < n; i++) {
+            if(s[i] != '|' && flag==0&& cnt == 0) {
+                temp += s[i];
+            }
+            else if(flag ==1&& cnt == 1 && s[i] == '|') {
+                flag = 0;
+                cnt = 0;
+            }
+            else if(s[i] == '|'){
+                flag = 1;
+                cnt++;
+            }
+        }
+        cnt = 0;
+        
+        for(int i = 0; i < temp.length(); i++) {
+            if(temp.charAt(i) == '*') {
+                cnt++;
+            }
+        }
+        
+        return cnt;
+    }
+}
+//"|**|*|*|**||***||"
