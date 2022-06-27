@@ -1,0 +1,43 @@
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static void main(String args[]) throws IOException {
+        BufferedReader read =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        while (t-- > 0) {
+            int N = Integer.parseInt(read.readLine());
+
+            Solution ob = new Solution();
+            int[] ans = ob.changeBits(N);
+            System.out.println(ans[0]+ " "+ ans[1]);
+        }
+    }
+}// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution {
+    static int fun(int n)
+    {
+        int p=0;
+        while(n>0)
+        {
+            p++;
+            n>>=1;
+        }
+        return p;
+    }
+    static int[] changeBits(int N) {
+       int f=fun(N);
+       int a[]=new int[2];
+       a[1]=(1<<f)-1;
+       a[0]=a[1]-N;
+       return a;
+    }
+};
