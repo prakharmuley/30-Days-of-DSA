@@ -1,0 +1,10 @@
+class Solution {
+    public int minPartitions(String n) {
+        int mx=1;
+        for(char c: n.toCharArray())
+        {
+            mx=Math.max(mx,c-'0');
+        }
+        return mx;
+    }
+}
